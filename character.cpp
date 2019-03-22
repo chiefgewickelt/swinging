@@ -2,14 +2,14 @@
 
 Character::Character(sf::Texture& tex, float hbx, float hby){
   sprite.setTexture(tex);
-  pm.setHB(hbx, hby);
+  setHB(hbx, hby);
 };
 
 void Character::pick_up(Weapon& on_ground){
-  weapon = on_gnround;
+  weapon = &on_ground;
 }
 
 void Character::update_tex(){
-  sprite.setPosition(pm.xpos(), pm.ypos());
-  weapon.setPosition(pm.x,pm.y);
+  sprite.setPosition(xpos(), ypos());
+  weapon->setPosition(x,y);
 };
