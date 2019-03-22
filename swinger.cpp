@@ -16,11 +16,6 @@ const float playermass = 10.0f;
 const float stepsize = 20.f;
 const float weap_angle = 10.f;
 
-/*n
-struct phy_sprite{
-  moveable pm;
-  sf::Sprite sprite;
-  };*/
 
 int main(){
   sf::RenderWindow window(sf::VideoMode(_X, _Y), "Swinger");
@@ -45,8 +40,8 @@ int main(){
   weapon.setOrigin(10,30);
   weapon.setTexture(axe);
   
-  Character wiking = Character(wikpic,23.f,23.f);
-  wiking.setPM(moveable(100.0f,100.0f,playermass,50.f,50.f));
+  Character wiking = Character(wikpic,23.f,23.f,100.0f,100.0f,playermass);
+
 
   sf::Clock clock;
 
@@ -66,7 +61,7 @@ int main(){
 
       while(frameTime > 0.0f){
 	float deltaTime = std::min(frameTime, dt);
-	wiking.pm.update_bound(deltaTime,_X,_Y);
+	wiking.update_bound(deltaTime,_X,_Y);
 	frameTime -= deltaTime;
 	t +=deltaTime;
       }
@@ -90,20 +85,20 @@ int main(){
       }
 
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-	wiking.pm.accX(dt,-stepsize);
+	wiking.accX(dt,-stepsize);
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-	wiking.pm.accX(dt,stepsize);
+	wiking.accX(dt,stepsize);
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-	wiking.pm.accY(dt,-stepsize);
+	wiking.accY(dt,-stepsize);
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-	wiking.pm.accY(dt,stepsize);
+	wiking.accY(dt,stepsize);
       }
             
       if(space_hit){
-	wiking.pm.accFac(0.5f);
+	wiking.accFac(0.5f);
 	space_hit = false;
       }
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){

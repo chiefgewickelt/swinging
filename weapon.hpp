@@ -11,6 +11,7 @@ class Weapon {
   virtual float dmg(float vx, float vy ,float dirx ,float diry)=0;//dir should point to monster origin
   virtual void setPosition(float& from_x, float& from_y)=0;
   void setSprite(sf::Sprite sp);
+  virtual ~Weapon();
 
 };
 
