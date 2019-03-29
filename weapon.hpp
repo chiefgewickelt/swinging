@@ -6,23 +6,22 @@
 
 
 class Weapon {
- public:
-  Weapon(){}
+ public:/*
   virtual bool hit(HitBox aimed_at, float at_x, float at_y)=0;
   virtual float dmg(float vx, float vy ,float dirx ,float diry)=0;//dir should point to monster origin
   virtual void setPosition(float& from_x, float& from_y)=0;
-  void setSprite(sf::Sprite sp);
-  virtual void rotate(float angle);
+  virtual  void setSprite(sf::Sprite sp)=0;
+  virtual void rotate(float angle)=0;*/
   virtual ~Weapon();
-
 };
+
 class Axe: public Weapon{
 public:
-  Axe(string n)name{n},m{1.0f}{}
+  Axe(std::string n):name{n},mass{1.0f}{}
   Axe():mass{1.0f}{}
-
+  ~Axe();
   void setSprite(sf::Sprite sp){sprite = sp;}
-  void setPosition(float& from_x, float& from_y){sprite.setPosition(from_x, from_y);}
+  void setPosition(float& from_x, float& from_y);
   
   bool hit(HitBox aimed_at, float at_x, float at_y);
   float dmg(float vx,float vy,float dirx, float diry);

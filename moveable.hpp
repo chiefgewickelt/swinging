@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include "hitbox.hpp"
+#include <vector>
 
 class moveable{
 public:

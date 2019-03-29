@@ -3,6 +3,9 @@
 #include <string>
 #include "weapon.hpp"
 
+Weapon::~Weapon(){};
+Axe::~Axe(){};
+
 bool Axe::hit(HitBox aimed_at , float at_x , float at_y){
   return false; 
 };
