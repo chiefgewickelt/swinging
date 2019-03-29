@@ -17,3 +17,6 @@ void Character::update_tex(){
   
 
 };
+void Character::swing(float angle){
+  weapon->rotate(angle);
+};

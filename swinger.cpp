@@ -41,7 +41,10 @@ int main(){
   weapon.setTexture(axe);
   
   Character wiking = Character(wikpic,23.f,23.f,100.0f,100.0f,playermass);
-
+  Axe first_axe;
+  first_axe.setSprite(weapon);
+  wiking.pick_up(first_axe);
+  
 
   sf::Clock clock;
 
@@ -66,17 +69,16 @@ int main(){
 	t +=deltaTime;
       }
 
-      
       while (window.pollEvent(event)){
 	switch(event.type){
 	case sf::Event::Closed:
 	  window.close();
 	case sf::Event::KeyPressed:
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::A)){
-	    weapon.rotate(weap_angle);
+	    wiking.swing(weap_angle);
 	  }
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::D)){
-	    weapon.rotate(-weap_angle);
+	    wiking.swing(-weap_angle);
 	  }
 	case sf::Event::KeyReleased:
 	  if(event.key.code == sf::Keyboard::Space)

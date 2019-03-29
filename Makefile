@@ -9,7 +9,7 @@ character.o: character.cpp
 weapon.o: weapon.cpp
 
 %.o : %.cpp
-	g++ $(CXXFLAGS) -c $<
+	g++ $(CXXFLAGS) -c $<	
 
 swinger: swinger.o moveable.o character.o weapon.o moveable.hpp character.hpp weapon.hpp 
 	g++ $(CXXFLAGS) $? -o $@ $(SFML)
