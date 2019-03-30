@@ -40,10 +40,11 @@ int main(){
   weapon.setOrigin(10,30);
   weapon.setTexture(axe);
   
-  Character wiking = Character(wikpic,23.f,23.f,100.0f,100.0f,playermass);
-  Axe first_axe;
+  Character wiking(wikpic,23.f,23.f,100.0f,100.0f,playermass);
+  Axe first_axe("noob axe");
+  //std::unique_ptr<Weapon> first_axe {new Axe("noob axe")};
   first_axe.setSprite(weapon);
-  wiking.pick_up(first_axe);
+  wiking.pick_up(&first_axe);
   
 
   sf::Clock clock;
@@ -75,10 +76,12 @@ int main(){
 	  window.close();
 	case sf::Event::KeyPressed:
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::A)){
-	    wiking.swing(weap_angle);
+	    std::cout << "A\n" ;
+	    //wiking.swing(weap_angle);
 	  }
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::D)){
-	    wiking.swing(-weap_angle);
+	    std::cout << "D\n" ;
+	    //	    wiking.swing(-weap_angle);
 	  }
 	case sf::Event::KeyReleased:
 	  if(event.key.code == sf::Keyboard::Space)

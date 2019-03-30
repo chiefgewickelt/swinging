@@ -6,8 +6,8 @@ Character::Character(sf::Texture& tex, float hbx, float hby, float xin, float yi
     moveable(xin,yin,mass,hbx,hby);
 };
 
-void Character::pick_up(Weapon& on_ground){
-  weapon = &on_ground;
+void Character::pick_up(Weapon * on_ground){
+  weapon = on_ground;
 }
 
 void Character::update_tex(){
