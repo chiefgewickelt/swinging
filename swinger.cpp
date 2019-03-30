@@ -14,8 +14,8 @@ const int _Y = 600;
 
 const float playermass = 10.0f;
 const float stepsize = 20.f;
-const float weap_angle = 10.f;
-
+//const float weap_angle = 10.f;
+float swing_time;
 
 int main(){
   sf::RenderWindow window(sf::VideoMode(_X, _Y), "Swinger");
@@ -64,7 +64,7 @@ int main(){
 
       while(frameTime > 0.0f){
 	float deltaTime = std::min(frameTime, dt);
-	wiking.update_bound(deltaTime,_X,_Y);
+	wiking.update(deltaTime,_X,_Y);
 	frameTime -= deltaTime;
 	t +=deltaTime;
       }
@@ -75,12 +75,12 @@ int main(){
 	  window.close();
 	case sf::Event::KeyPressed:
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::A)){
-	    std::cout << "A\n" ;
-	    wiking.swing(weap_angle);
+	    //	    std::cout << "A\n" ;
+	    wiking.swing(dt);
 	  }
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::D)){
-	    std::cout << "D\n" ;
-	    wiking.swing(-weap_angle);
+	    //	    std::cout << "D\n" ;
+	    wiking.swing(-dt);
 	  }
 	case sf::Event::KeyReleased:
 	  if(event.key.code == sf::Keyboard::Space)

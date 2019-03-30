@@ -14,9 +14,12 @@ void Character::update_tex(){
   sprite.setPosition(xpos(), ypos());
   if(weapon)
     weapon->setPosition(x,y);
-  
-
 };
-void Character::swing(float angle){
-  weapon->rotate(angle);
+
+void Character::update(float dt, const int X, const int Y){
+  update_bound(dt, X,Y);
+  weapon->update(dt);
+}
+void Character::swing(float dt){
+  weapon->omega+=10000*dt/weapon->mass;//modifiy by character atributes...
 };

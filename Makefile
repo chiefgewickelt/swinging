@@ -1,14 +1,21 @@
-SFML=-lsfml-graphics -lsfml-window -lsfml-system
-CXXFLAGS=-std=c++11
+LDFLAGS+=-lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS=-std=c++11 -fsanitize=address
+LINK.o=$(LINK.cc)
+all: swinger
 
-swinger.o: swinger.cpp 
+swinger.o: swinger.cpp *.hpp
 moveable.o: moveable.cpp
 character.o: character.cpp
 weapon.o: weapon.cpp
 
 %.o : %.cpp
 	g++ $(CXXFLAGS) -c $<	
+%.o : *.hpp
 
-swinger: swinger.o moveable.o character.o weapon.o moveable.hpp character.hpp weapon.hpp
-	g++ $(CXXFLAGS) $? -o $@ $(SFML)
+.PHONY: clean
+clean:
+	$(RM) *.o
+
+
+swinger: swinger.o moveable.o character.o weapon.o
 
