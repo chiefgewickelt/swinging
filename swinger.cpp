@@ -24,7 +24,7 @@ int main(){
   if(!wikpic.loadFromFile("wiking.png")){
     std::cout << "wiking pic not found\n" ;
   }
-  sf::Sprite weapon;
+  sf::Sprite noob_axe;
   sf::Texture axe;
   if(!axe.loadFromFile("axe.png")){
     std::cout << "axe pic not found\n" ;
@@ -37,13 +37,12 @@ int main(){
   monster.setPosition(400,300);
   monster.setTexture(lui);
   
-  weapon.setOrigin(10,30);
-  weapon.setTexture(axe);
+  noob_axe.setOrigin(10,30);
+  noob_axe.setTexture(axe);
   
   Character wiking(wikpic,23.f,23.f,100.0f,100.0f,playermass);
   Axe first_axe("noob axe");
-  //std::unique_ptr<Weapon> first_axe {new Axe("noob axe")};
-  first_axe.setSprite(weapon);
+  first_axe.setSprite(noob_axe);
   wiking.pick_up(&first_axe);
   
 
@@ -77,11 +76,11 @@ int main(){
 	case sf::Event::KeyPressed:
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::A)){
 	    std::cout << "A\n" ;
-	    //wiking.swing(weap_angle);
+	    wiking.swing(weap_angle);
 	  }
 	  if(sf:: Keyboard::isKeyPressed(sf::Keyboard::D)){
 	    std::cout << "D\n" ;
-	    //	    wiking.swing(-weap_angle);
+	    wiking.swing(-weap_angle);
 	  }
 	case sf::Event::KeyReleased:
 	  if(event.key.code == sf::Keyboard::Space)
@@ -114,7 +113,7 @@ int main(){
       wiking.update_tex();
       window.clear();
       window.draw(wiking.sprite);
-      window.draw(weapon);
+      window.draw(wiking.weapon->sprite);
       window.draw(monster);
       window.display();
     }

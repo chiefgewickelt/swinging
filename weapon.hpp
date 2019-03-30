@@ -13,6 +13,7 @@ class Weapon {
   virtual  void setSprite(sf::Sprite sp)=0;
   virtual void rotate(float angle)=0;
   virtual ~Weapon();
+  sf::Sprite sprite;
 };
 
 class Axe: public Weapon{
@@ -29,7 +30,7 @@ public:
   void rotate(float angle) {sprite.rotate(angle);}
   
   float mass;
-  sf::Sprite sprite;
+  //  sf::Sprite sprite;
   std::string name;
 };
 

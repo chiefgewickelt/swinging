@@ -15,7 +15,7 @@ float Axe::dmg(float vx, float vy,float dirx,float diry){
 void Axe::setPosition(float& from_x, float& from_y){
   float offx = 23.f;
   float offy = 23.f;
-  sprite.setPosition(from_x+offx, from_y + offy );
+  sprite.setPosition(int(from_x+offx), int(from_y + offy) );
 };
 
 
