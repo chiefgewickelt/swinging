@@ -7,6 +7,7 @@ swinger.o: swinger.cpp *.hpp
 moveable.o: moveable.cpp
 character.o: character.cpp
 weapon.o: weapon.cpp
+monster.o: monster.cpp
 
 %.o : %.cpp
 	g++ $(CXXFLAGS) -c $<	
@@ -17,5 +18,5 @@ clean:
 	$(RM) *.o
 
 
-swinger: swinger.o moveable.o character.o weapon.o
+swinger: swinger.o moveable.o character.o weapon.o monster.o
 

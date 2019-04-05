@@ -7,6 +7,7 @@
 #include "moveable.hpp"
 #include "character.hpp"
 #include "weapon.hpp"
+#include "monster.hpp"
 /* SETTINGS */
 //screensize
 const int _X = 800;
@@ -19,7 +20,6 @@ float swing_time;
 
 int main(){
   sf::RenderWindow window(sf::VideoMode(_X, _Y), "Swinger");
-
   sf::Texture wikpic;
   if(!wikpic.loadFromFile("wiking.png")){
     std::cout << "wiking pic not found\n" ;
@@ -29,13 +29,16 @@ int main(){
   if(!axe.loadFromFile("axe.png")){
     std::cout << "axe pic not found\n" ;
   }
-  sf::Sprite monster;
-  sf::Texture lui;
-  if(!lui.loadFromFile("bittschy.png")){
+
+  
+  sf::Texture luitex;
+  if(!luitex.loadFromFile("bittschy.png")){
     std::cout << "bittschy pic not found\n" ;
   }
-  monster.setPosition(400,300);
-  monster.setTexture(lui);
+  Monster lui(luitex,50.f,50.f);
+  
+  lui.setPosition(400.f,300.f);
+  std::vector<Monster> monsters{lui};
   
   noob_axe.setOrigin(10,30);
   noob_axe.setTexture(axe);
@@ -51,13 +54,18 @@ int main(){
   float t = 0.0f;
   float dt = 1/60.0f;
   sf::Time currentTime = clock.getElapsedTime();
-
+  
   bool space_hit = false;
   
   while (window.isOpen())
     {
+      sf::Time monster_reset; 
+
       sf::Event event;
       sf::Time newTime = clock.getElapsedTime();
+
+
+      
       sf::Time frameTimeP = newTime-currentTime;
       float frameTime = frameTimeP.asSeconds();
       currentTime = newTime;
@@ -104,19 +112,41 @@ int main(){
       if(space_hit){
 	wiking.accFac(0.5f);
 	space_hit = false;
-      }
+	}
       if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 	window.close();
       }
-      
 
+      ///HIT DETECTION *******************************
+
+      for(auto& m: monsters){
+	if(m.is_hit_by(wiking.weapon->active_point())){
+	  m.get_hit(wiking.weapon->dmg(1.f,1.f));//TOBE REFINED firection to monster shlud be fiven...to avoid touch dmg... momentum can oly be computed with correcr relative information...
+	  monster_reset = clock.getElapsedTime();
+	}
+      }
+      ///*********************************************
+
+      
       wiking.update_tex();
+      
       window.clear();
       window.draw(wiking.sprite);
       window.draw(wiking.weapon->sprite);
-      window.draw(monster);
+      for(auto& m:monsters){
+	m.update_tex();
+	if(m.alife)
+	  window.draw(m.sprite);
+	else{
+	  if (clock.getElapsedTime().asSeconds() - monster_reset.asSeconds()>3.f){
+	    m.alife = true;
+	  }
+      }
+      
+      }
       window.display();
     }
-  
   return 0;
 }
+    
+
