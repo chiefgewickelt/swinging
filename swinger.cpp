@@ -20,6 +20,16 @@ float swing_time;
 
 int main(){
   sf::RenderWindow window(sf::VideoMode(_X, _Y), "Swinger");
+
+  //circles to indicate stuff ********************
+  sf::CircleShape active_spot(4.f);
+  active_spot.setFillColor(sf::Color(150,50,250));
+  bool indication_needed = false;
+
+  // sf::CircleShape hit_area(25.f);
+  // hit_area.setFillColor(sf::Color(50,250,150));
+  
+  //**********************************************
   sf::Texture wikpic;
   if(!wikpic.loadFromFile("wiking.png")){
     std::cout << "wiking pic not found\n" ;
@@ -54,17 +64,14 @@ int main(){
   float t = 0.0f;
   float dt = 1/60.0f;
   sf::Time currentTime = clock.getElapsedTime();
+  sf::Time monster_reset = clock.getElapsedTime();
   
   bool space_hit = false;
   
   while (window.isOpen())
     {
-      sf::Time monster_reset; 
-
       sf::Event event;
       sf::Time newTime = clock.getElapsedTime();
-
-
       
       sf::Time frameTimeP = newTime-currentTime;
       float frameTime = frameTimeP.asSeconds();
@@ -119,27 +126,38 @@ int main(){
 
       ///HIT DETECTION *******************************
 
+      std::vector<float> weapon_tip(2);
+      weapon_tip = wiking.weapon->active_point();
+      active_spot.setPosition(weapon_tip[0],weapon_tip[1]);
+
+      //hit_area.setPosition(lui.center()[0],lui.center()[1]);
+      
+      
       for(auto& m: monsters){
-	if(m.is_hit_by(wiking.weapon->active_point())){
+	if(m.is_hit_by(weapon_tip) and m.alife){
 	  m.get_hit(wiking.weapon->dmg(1.f,1.f));//TOBE REFINED firection to monster shlud be fiven...to avoid touch dmg... momentum can oly be computed with correcr relative information...
 	  monster_reset = clock.getElapsedTime();
 	}
       }
       ///*********************************************
 
-      
       wiking.update_tex();
       
       window.clear();
       window.draw(wiking.sprite);
       window.draw(wiking.weapon->sprite);
+      if(indication_needed){
+	window.draw(active_spot);
+	//      window.draw(hit_area);
+      }
       for(auto& m:monsters){
 	m.update_tex();
 	if(m.alife)
 	  window.draw(m.sprite);
 	else{
-	  if (clock.getElapsedTime().asSeconds() - monster_reset.asSeconds()>3.f){
+	  if ((clock.getElapsedTime() - monster_reset).asSeconds()> 5.f){
 	    m.alife = true;
+	    
 	  }
       }
       

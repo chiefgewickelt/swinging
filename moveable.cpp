@@ -14,6 +14,9 @@ template <typename T> int sgn_0to1(T val){
 
 const float moveable::MAX_V = 200.0;
 
+
+moveable::~moveable(){};
+
 void moveable::accX(float dt, float df){
   float next = v[0] + dt * df/m;
   v[0]=std::min(std::abs(next), MAX_V)*sgn(next);

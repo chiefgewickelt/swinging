@@ -19,15 +19,13 @@ std::vector<float> Axe::active_point(){
 
   //calculate the tip of axe
   float alpha = sprite.getRotation()*3.14f/180.f;
+  //std::cout << alpha << "\n";
   
-  float x1 =  sprite.getPosition().x+std::cos(alpha)*range;
-  float y1 =  sprite.getPosition().y+std::sin(alpha)*range;
+  float x1 =  sprite.getPosition().x+std::sin(alpha)*range;
+  float y1 =  sprite.getPosition().y-std::cos(alpha)*range;
   //select active side depending on rotation direction (sign of omega)
-  x1 += sgn(omega)*std::sin(alpha)*range/2.f;
-  y1 += sgn(omega)*std::cos(alpha)*range/2.f;
-
-  //  result.push_back({x1,y1});
-  std::cout<< x1 << "," << y1 << "\n";
+  //x1 += sgn(omega)*std::cos(alpha)*range/4.f;
+  //y1 += sgn(omega)*std::sin(alpha)*range/4.f;
   return {x1,y1};
   
 };

@@ -21,5 +21,5 @@ void Character::update(float dt, const int X, const int Y){
   weapon->update(dt);
 }
 void Character::swing(float dt){
-  weapon->omega+=10000*dt/weapon->mass;//modifiy by character atributes...
+  weapon->omega+=100*dt/weapon->mass;//modifiy by character atributes...
 };

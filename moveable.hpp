@@ -5,7 +5,7 @@
 
 class moveable{
 public:
-  ~moveable(){}
+  ~moveable(); 
   moveable(float xin, float yin, float mass, float hbx, float hby):x{xin},y{yin},v{0.f,0.f},m{mass},hitbox{hbx,hby}{}
   moveable():x{0}, y{0},v{0,0},m{1.0f},hitbox{50.f,50.f}{}
   void accX(float dt, float df);
@@ -21,7 +21,7 @@ public:
   HitBox hitbox;
 
 private:
-  static const float MAX_V;// = 20.0;//pixel per seconds
+  static const float MAX_V;
     std::vector<float> v;
   float m;
 

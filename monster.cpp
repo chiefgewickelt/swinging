@@ -12,18 +12,18 @@ Monster::Monster(sf::Texture& tex, float hbx, float hby):alife{true},hit_radius{
 
 
 bool Monster::is_hit_by(std::vector<float> const incomming){
-    if( std::abs(x+hitbox.x-incomming[0]) <  hit_radius and std::abs(y+hitbox.y-incomming[1]) < hit_radius){//if indicator points are in hit circle
+    if( std::abs(x+hitbox.x/2.f-incomming[0]) <  hit_radius and std::abs(y+hitbox.y/2.f-incomming[1]) < hit_radius){//if indicator points are in hit circle
       return true;
     }
     return false;
   
 };
 
-std::vector<float> Monster::center(){
+std::vector<float> Monster::center(){//?????
   
   // result = std::vector{x+hitbox.x/2,y+hitbox.y/2};
   
-  return {x+hitbox.x/2,y+hitbox.y/2};
+  return {x+hitbox.x/2.f,y+hitbox.y/2.f};
 };
 
 
