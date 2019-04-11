@@ -19,10 +19,10 @@ public:
   float x;
   float y;
   HitBox hitbox;
+  std::vector<float> v;
 
 private:
   static const float MAX_V;
-    std::vector<float> v;
   float m;
 
 };

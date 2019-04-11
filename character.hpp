@@ -15,10 +15,17 @@ public:
   ~Character(){}
 
   bool is_hit_by(const Monster &  m);
+  void gets_hit_by(/*const Monster & m*/);
+  void drop_weapon();
   
   Character(sf::Texture& tex, float hbx, float hby, float xin, float yin,const float m);
   void swing(float dt);
   void update(float dt, const int X, const int Y);
   sf::Sprite sprite;
-  Weapon* weapon; 
+  Weapon* weapon;
+
+  float life;
+  float str;
+
+  
 };

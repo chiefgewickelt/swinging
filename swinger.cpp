@@ -134,7 +134,8 @@ int main(){
       
       
       for(auto& m: monsters){
-	if(wiking.is_hit_by(m)){
+	if(wiking.is_hit_by(m)and m.alife){
+	  wiking.gets_hit_by(/*m*/);
 	  std::cout << "player got hit.\n";
 	}
 	if(m.is_hit_by(weapon_tip) and m.alife){
