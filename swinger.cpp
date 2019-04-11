@@ -134,6 +134,9 @@ int main(){
       
       
       for(auto& m: monsters){
+	if(wiking.is_hit_by(m)){
+	  std::cout << "player got hit.\n";
+	}
 	if(m.is_hit_by(weapon_tip) and m.alife){
 	  m.get_hit(wiking.weapon->dmg(1.f,1.f));//TOBE REFINED firection to monster shlud be fiven...to avoid touch dmg... momentum can oly be computed with correcr relative information...
 	  monster_reset = clock.getElapsedTime();

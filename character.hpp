@@ -14,6 +14,8 @@ public:
   void update_tex();
   ~Character(){}
 
+  bool is_hit_by(const Monster &  m);
+  
   Character(sf::Texture& tex, float hbx, float hby, float xin, float yin,const float m);
   void swing(float dt);
   void update(float dt, const int X, const int Y);
