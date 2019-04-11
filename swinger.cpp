@@ -8,16 +8,9 @@
 #include "character.hpp"
 #include "weapon.hpp"
 #include "monster.hpp"
-/* SETTINGS */
-//screensize
-const int _X = 800;
-const int _Y = 600;
+#include "settings.hpp"
 
-const float playermass = 10.0f;
-const float stepsize = 20.f;
-//const float weap_angle = 10.f;
-float swing_time;
-
+ 
 int main(){
   sf::RenderWindow window(sf::VideoMode(_X, _Y), "Swinger");
 
@@ -40,25 +33,40 @@ int main(){
     std::cout << "axe pic not found\n" ;
   }
 
+  sf::Sprite fist;
+  sf::Texture fist_pic;
+  if(!fist_pic.loadFromFile("fist.png")){
+    std::cout << "fist pic not found\n";
+  }
+  fist.setOrigin(10,40);
+  fist.setTexture(fist_pic);
+  //quick and dirty pls fix:
+  Axe karate("bare hands");
+  karate.setSprite(fist);
+  
   
   sf::Texture luitex;
   if(!luitex.loadFromFile("bittschy.png")){
     std::cout << "bittschy pic not found\n" ;
   }
   Monster lui(luitex,50.f,50.f);
-  
+    
   lui.setPosition(400.f,300.f);
   std::vector<Monster> monsters{lui};
   
   noob_axe.setOrigin(10,30);
   noob_axe.setTexture(axe);
+
   
-  Character wiking(wikpic,23.f,23.f,100.0f,100.0f,playermass);
+  Character wiking(wikpic,23.f,23.f,100.0f,100.0f,playermass,&karate);
   Axe first_axe("noob axe");
   first_axe.setSprite(noob_axe);
   wiking.pick_up(&first_axe);
-  
 
+
+  std::vector<Weapon*> active_items;
+  active_items.push_back(&first_axe);
+  
   sf::Clock clock;
 
   float t = 0.0f;
@@ -149,11 +157,15 @@ int main(){
       
       window.clear();
       window.draw(wiking.sprite);
-      window.draw(wiking.weapon->sprite);
-      if(indication_needed){
-	window.draw(active_spot);
-	//      window.draw(hit_area);
+      for(auto& x: active_items){
+	window.draw(x->sprite);
       }
+      window.draw(wiking.weapon->sprite);
+
+      //      if(indication_needed){
+      //window.draw(active_spot);
+	//      window.draw(hit_area);
+      //      }
       for(auto& m:monsters){
 	m.update_tex();
 	if(m.alife)

@@ -1,17 +1,20 @@
+
 #include "character.hpp"
 #include <stdexcept>
 #include <cmath>
 #include "settings.hpp"
 
-Character::Character(sf::Texture& tex, float hbx, float hby, float xin, float yin,float mass){
+Character::Character(sf::Texture& tex, float hbx, float hby, float xin, float yin,float mass, Weapon * hands){
     sprite.setTexture(tex);
     moveable(xin,yin,mass,hbx,hby);
     life = 100.f;
     str = 10.f;
+    bare_hands = hands;
 };
 
 void Character::pick_up(Weapon * on_ground){
   weapon = on_ground;
+  carrys_sth = true;
 }
 
 void Character::update_tex(){
@@ -23,7 +26,7 @@ void Character::update_tex(){
 void Character::update(float dt, const int X, const int Y){
   update_bound(dt, X,Y);
   weapon->update(dt);
-  std::cout << weapon->omega << "\n";
+  //std::cout << weapon->omega << "\n";
   //if rotation speed is higher than str determins the maximal centripedal force
   if(std::abs(weapon->omega) > str * max_rot_factor){
     drop_weapon();
@@ -32,7 +35,9 @@ void Character::update(float dt, const int X, const int Y){
 }
 
 void Character::drop_weapon(){
-  std::cout << "max rotation speen exeeded\n";
+  //std::cout << "max rotation speen exeeded\n";
+  weapon = bare_hands;
+  carrys_sth = false;
 }
 
 void Character::swing(float dt){

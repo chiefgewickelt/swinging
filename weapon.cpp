@@ -37,7 +37,3 @@ void Axe::setPosition(float& from_x, float& from_y){
   float offy = 23.f;
   sprite.setPosition(int(from_x+offx), int(from_y + offy) );
 };
-
-
-
-/*hardcode weapons here for the beginning...*/

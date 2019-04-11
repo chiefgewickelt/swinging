@@ -19,7 +19,6 @@ class Weapon {
   sf::Sprite sprite;
   float mass = 0.1f;
   float omega = 0.f;
-
   virtual void update(float dt)=0;
   
 };

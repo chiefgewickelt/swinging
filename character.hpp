@@ -18,12 +18,15 @@ public:
   void gets_hit_by(/*const Monster & m*/);
   void drop_weapon();
   
-  Character(sf::Texture& tex, float hbx, float hby, float xin, float yin,const float m);
+  Character(sf::Texture& tex, float hbx, float hby, float xin, float yin,const float m, Weapon * hands);
   void swing(float dt);
   void update(float dt, const int X, const int Y);
   sf::Sprite sprite;
   Weapon* weapon;
+  Weapon* bare_hands;
 
+  bool carrys_sth= false;
+  
   float life;
   float str;
 
