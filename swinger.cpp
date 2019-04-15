@@ -88,6 +88,10 @@ int main(){
       while(frameTime > 0.0f){
 	float deltaTime = std::min(frameTime, dt);
 	wiking.update(deltaTime,_X,_Y);
+	for(auto& m : monsters){
+	if(m.alife)
+	  m.update(deltaTime, _X, _Y, wiking.x, wiking.y, wiking.v);
+	}
 	frameTime -= deltaTime;
 	t +=deltaTime;
       }
@@ -154,6 +158,8 @@ int main(){
       ///*********************************************
 
       wiking.update_tex();
+
+      
       
       window.clear();
       window.draw(wiking.sprite);

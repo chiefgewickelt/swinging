@@ -16,6 +16,7 @@ class Monster: public moveable{
     std::cout << "monster got hit\n ";}
   bool is_hit_by(std::vector<float> const incomming);
   std::vector<float> center();
+  void update(float dt, const int X, const int Y, float x_to, float y_to ,std::vector<float>& v_to);
   
   float hit_radius;
   bool alife;

@@ -26,7 +26,11 @@ std::vector<float> Monster::center(){//?????
   return {x+hitbox.x/2.f,y+hitbox.y/2.f};
 };
 
-
+void Monster::update(float dt, const int X, const int Y, float x_to, float y_to, std::vector<float>& v_to){
+  update_bound(dt, X, Y);
+  v[0] = x_to - x + v_to[0];
+  v[1] = y_to - y + v_to[1];
+};
   
 
 
