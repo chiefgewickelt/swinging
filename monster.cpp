@@ -28,8 +28,12 @@ std::vector<float> Monster::center(){//?????
 
 void Monster::update(float dt, const int X, const int Y, float x_to, float y_to, std::vector<float>& v_to){
   update_bound(dt, X, Y);
-  v[0] = x_to - x + v_to[0];
-  v[1] = y_to - y + v_to[1];
+  accFac(0.5f);
+  accX(dt,x_to - x + v_to[0]);
+  accY(dt,y_to - y + v_to[1]);
+  accFac(2.f);
+  /*v[0] = x_to - x + v_to[0];
+    v[1] = y_to - y + v_to[1];*/
 };
   
 

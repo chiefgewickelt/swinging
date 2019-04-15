@@ -10,7 +10,15 @@
 #include "monster.hpp"
 #include "settings.hpp"
 
- 
+
+void pick_if_near(Weapon* w, Character& dude){
+  auto pos = w->sprite.getPosition();
+  if(std::abs(pos.x + pick_offset - dude.x) + std::abs(pos.y + pick_offset - dude.y) < pick_range )
+    //dude near active item
+    dude.pick_up(w);
+  };
+
+
 int main(){
   sf::RenderWindow window(sf::VideoMode(_X, _Y), "Swinger");
 
@@ -38,7 +46,7 @@ int main(){
   if(!fist_pic.loadFromFile("fist.png")){
     std::cout << "fist pic not found\n";
   }
-  fist.setOrigin(10,40);
+  fist.setOrigin(25,25);
   fist.setTexture(fist_pic);
   //quick and dirty pls fix:
   Axe karate("bare hands");
@@ -112,6 +120,10 @@ int main(){
 	case sf::Event::KeyReleased:
 	  if(event.key.code == sf::Keyboard::Space)
 	    space_hit = true;
+	  if(event.key.code == sf::Keyboard::E)
+	    for(auto w : active_items){
+	      pick_if_near(w,wiking);
+	    }
 	}
       }
 

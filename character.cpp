@@ -17,6 +17,7 @@ void Character::pick_up(Weapon * on_ground){
   carrys_sth = true;
 }
 
+
 void Character::update_tex(){
   sprite.setPosition(xpos(), ypos());
   if(weapon)
@@ -28,20 +29,28 @@ void Character::update(float dt, const int X, const int Y){
   weapon->update(dt);
   //std::cout << weapon->omega << "\n";
   //if rotation speed is higher than str determins the maximal centripedal force
-  if(std::abs(weapon->omega) > str * max_rot_factor){
-    drop_weapon();
-  }
-  
+  if( carrys_sth)
+    if(std::abs(weapon->omega) > str * max_rot_factor){
+      drop_weapon();
+      weapon->omega = 0.f;
+      weapon->sprite.setRotation(0.f);
+    }
 }
 
 void Character::drop_weapon(){
   //std::cout << "max rotation speen exeeded\n";
+  weapon->omega = 0.f;
   weapon = bare_hands;
   carrys_sth = false;
 }
 
 void Character::swing(float dt){
-  weapon->omega+=10*str*dt/weapon->mass;//modifiy by character atributes...
+  if(carrys_sth){
+    weapon->omega+=swing_factor*str*dt/weapon->mass;//modifiy by character atributes...
+    return;
+  }
+ 
+  
 };
 
 bool Character::is_hit_by(const Monster &  m){
